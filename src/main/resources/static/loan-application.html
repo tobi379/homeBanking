@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <!-- VUE.JS -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+
+    <title>Solicitar préstamo</title>
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <h1>
+              <a href="accounts.html" class="text-decoration-none text-dark">
+                <span class="color">Home</span>banking
+              </a>
+            </h1>
+  
+            <nav>
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link active text-dark fs-3 text-uppercase" aria-current="page" href="cards.html">Tarjetas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-dark fs-3 text-uppercase" href="transfers.html">Transferencias</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-dark fs-3 text-uppercase" href="#" @click="logout">Cerrar Sesión</a>
+                  </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h2 class="text-center text-uppercase p-5">Solicitar nuevo préstamo</h2>
+
+            <form class="contenedor w-50 mt-5">
+                <select v-model="loanId" class="form-select mb-5 p-3" aria-label="Default select example">
+                    <option value="" selected>Tipo de Préstamo</option>
+                    <option v-for="loan in loans" :value="loan.id">{{loan.name}}</option>
+                </select>
+                <P v-if="loanId != 0">Monto maximo permitido: ${{loans[loanId - 1].maxAmount}}</P>
+                <P v-if="loanId != 0">Interes: %{{loans[loanId - 1].porcentaje * 100}}</P>
+
+                <select v-if="loanId != 0" v-model="loanPayment" class="form-select mb-5 p-3" aria-label="Default select example">
+                    <option value="" selected>Cuotas</option>
+                    <option v-for="loan in loans[loanId - 1].payments" :value="loan">{{loan}}</option>
+                </select>
+
+                <select v-model="accountDest" class="form-select mb-5 p-3" aria-label="Default select example">
+                    <option value="" selected>Cuenta de Destino</option>
+                    <option v-for="account in accounts" :value="account.number">{{account.number}}</option>
+                </select>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text p-3">$</span>
+                    <input v-model="amount" type="text" class="form-control p-3" aria-label="Amount (to the nearest dollar)">
+                </div>
+
+                <button @click="completeLoan()" class="btn btn-primary fs-4 mt-4">Solicitar Préstamo</button>
+            </form>
+        </main>
+
+        <footer class="footer">
+            <h4>&copy; Copyright 2021 || Mabe by: Tobias Pazos</h4>
+        </footer>
+    </div>
+
+    <script src="js/loan-application.js"></script>
+</body>
+</html>

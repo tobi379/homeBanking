@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <!-- VUE.JS -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+
+    <title>Solicitar tarjetas</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <header class="header">
+            <h1>
+              <a href="accounts.html" class="text-decoration-none text-dark">
+                <span class="color">Home</span>banking
+              </a>
+            </h1>
+  
+            <nav>
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link active text-dark fs-3 text-uppercase" aria-current="page" href="cards.html">Tarjetas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-dark fs-3 text-uppercase" href="transfers.html">Transferencias</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-dark fs-3 text-uppercase" href="#" @click="logout">Cerrar Sesión</a>
+                  </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main__form">
+            <form class="form__cards shadow-lg">
+                <h2>Solicitar nueva tarjeta</h2>
+                <label for="cardtype">Tipo de tarjeta:</label>
+                <select v-model="type" name="cardtype" id="cardtype" class="w-25" required>
+                    <option v-show="cardsDebito.length < 3" value="DEBIT" selected>Débito</option>
+                    <option v-show="cardsCredito.length < 3" value="CREDIT">Crédito</option>
+                </select>
+                <label for="color">Color de Tarjeta:</label>
+                <select v-model="color" name="color" id="color" class="w-25" required>
+                    <option value="SILVER" selected>SILVER</option>
+                    <option value="GOLD">GOLD</option>
+                    <option value="TITANIUM">TITANIUM</option>
+                </select>
+        
+                <input class="mt-2 botones" type="button" value="Solicitar Tarjeta" @click="addCard">
+            </form>
+        </main>
+
+        <footer class="footer">
+            <h4>&copy; Copyright 2021 || Mabe by: Tobias Pazos</h4>
+        </footer>
+    </div>
+
+    <script src="js/cards.js"></script>
+</body>
+
+
+</html>

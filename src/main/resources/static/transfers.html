@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <!-- VUE.JS -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+
+    <title>Transferencias</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <header class="header">
+            <h1>
+              <a href="accounts.html" class="text-decoration-none text-dark">
+                <span class="color">Home</span>banking
+              </a>
+            </h1>
+  
+              <nav>
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link active text-dark fs-3 text-uppercase" aria-current="page" href="cards.html">Tarjetas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-dark fs-3 text-uppercase" href="transfers.html">Transferencias</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-dark fs-3 text-uppercase" href="#" @click="logout">Cerrar Sesión</a>
+                  </li>
+                </ul>
+              </nav>
+        </header>
+
+        <main>
+            <h2 class="text-center text-uppercase p-5">Realizar Transferencia</h2>
+            <form class="formulario">
+                <div class="campo">
+                    <select v-model="transfer" class="form-select-lg mb-3" aria-label=".form-select-lg example">
+                        <option value="" selected>Elegir cuenta de origen</option>
+                        <option value="propia">Cuenta propia</option>
+                        <option value="tercero">Cuenta de Tercero</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label v-if="transfer == 'propia' || transfer == 'tercero'" for="acc" class="campo__label">Seleccionar Cuenta de Origen:</label>
+                    <select class="campo__field" id="acc" @change="filtrarCuentas" v-model="accountDebit" v-if="transfer == 'propia' || transfer == 'tercero'">
+                        <option value="" selected>Seleccionar</option>
+                        <option :value="account.number" v-for="account in accounts">{{account.number}}</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label v-if="transfer == 'propia'" class="campo__label" for="tercero">Seleccionar cuenta de Destino:</label>
+                    <select class="campo__field" v-model="accountCredit" v-if="transfer == 'propia'" id="tercero">
+                        <option value="">Seleccionar</option>
+                        <option v-for="account in accountsFiltradas" :value="account.number">
+                            {{account.number}}</option>
+                        </option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label class="campo__label" v-if="transfer == 'tercero'" for="thirdAccount">Número de Cuenta</label>
+                    <input class="campo__field" v-if="transfer == 'tercero'" type="text" id="thirdAccount" v-model="accountCredit">
+                </div>
+
+                <div class="campo">
+                    <label class="campo__label" v-if="transfer == 'propia' || transfer == 'tercero'" for="desc">Descripción</label>
+                    <input class="campo__field" v-if="transfer == 'propia' || transfer == 'tercero'" type="text" v-model="desc" id="desc">
+                </div>
+
+                <div class="campo">
+                    <label class="campo__label" v-if="transfer == 'propia' || transfer == 'tercero'" for="amount">Cantidad:</label>
+                    <input class="campo__field" v-if="transfer == 'propia' || transfer == 'tercero'" v-model="amount" type="number" id="amount" required>
+                </div>
+            </form>
+        </main>
+
+        <footer class="footer">
+            <h4>&copy; Copyright 2021 || Mabe by: Tobias Pazos</h4>
+        </footer>
+    </div>
+
+    <script src="js/transfers.js"></script>
+</body>
+
+
+</html>

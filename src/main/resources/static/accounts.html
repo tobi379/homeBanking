@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <!-- VUE.JS -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+
+    <title>Home</title>
+</head>
+<body>
+    <div id="app">
+
+        <header class="header">
+          <h1>
+            <a href="accounts.html" class="text-decoration-none text-dark">
+              <span class="color">Home</span>banking
+            </a>
+          </h1>
+
+            <nav>
+              <ul class="nav">
+                <li class="nav-item">
+                  <a class="nav-link active text-dark fs-3 text-uppercase" aria-current="page" href="cards.html">Tarjetas</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-dark fs-3 text-uppercase" href="transfers.html">Transferencias</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-dark fs-3 text-uppercase" href="#" @click="logout">Cerrar Sesión</a>
+                </li>
+              </ul>
+            </nav>
+        </header>
+
+        <main class="pt-4">
+            <section class="margin shadow-lg p-4 rounded">
+                <div class="cuentas mb-5">
+                  <h2>Tus Cuentas</h2>
+                  <button class="btn btn-info fs-4" v-if="totalAccounts < 3" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal" value="Add Account">Crear Cuenta</button>
+
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                Select Type Account </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Close">
+                                <input @click="AddAccount('Ahorro')" type="button" class="btn btn-primary"
+                                    value="Ahorro">
+                                <input @click="AddAccount('Corriente')" type="button" class="btn btn-primary"
+                                    value="Corriente">
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div v-if="accounts.length == 0">
+                  <h4 class="text-center p-5 text-uppercase">No tienes ninguna cuenta registrada</h4>
+                </div>
+
+                <div v-else class="accounts__cards">
+                    <div v-for = "accounts in clients.accounts" class="cards col-sm-6 mb-5 shadow-lg">
+                      <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Nro de Cuenta: {{accounts.number}}</h5>
+                            <p class="card-text">{{accounts.accountType}}</p>
+                            <p class="card-text"><span class="negrita">Saldo: </span>${{accounts.balance}}</p>
+                            <p class="card-text">{{date(accounts.creationDate)}}</p>
+                            <div class="d-flex justify-content-between">
+                                <a v-bind:href="'http://localhost:8080/account.html?id=' + accounts.id" class="btn btn-outline-primary">Ultimas Transacciones</a>
+                                <a @click="deleteAccount(accounts.number)" class="btn btn-outline-danger">Borrar Cuenta</a>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="shadow-lg p-4 mt-5 rounded">
+                <div class="cuentas mb-5">
+                    <h2>Tus Prestamos</h2>
+                    <button class="btn btn-info fs-4">
+                      <a class="text-decoration-none text-dark" href="loan-application.html">
+                        Solicitar Préstamo
+                      </a>
+                    </button>
+                </div>
+
+                <div v-if="loans.length == 0">
+                  <h4 class="text-center p-5 text-uppercase">No tienes ningun préstamo solicitado</h4>
+                </div>
+
+                <div v-else class="accounts__cards">
+                    <div v-for = "loans in clients.loans" class="cards col-sm-6 mb-5 shadow-lg">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">ID: {{loans.idLoan}}</h5>
+                          <p class="card-text"><span class="negrita">Prestamo:</span> {{loans.name}}</p>
+                          <p class="card-text"><span class="negrita">Cantidad solicitada:</span> ${{loans.amount}}</p>
+                          <p><span class="negrita">Cuotas:</span> {{loans.payments}}</p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+          <h4>&copy; Copyright 2021 || Mabe by: Tobias Pazos</h4>
+        </footer>
+    </div>
+
+    <script src="js/accounts.js"></script>
+</body>
+</html>
