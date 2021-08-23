@@ -9,6 +9,8 @@ import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.service.AccountService;
 import com.mindhub.homebanking.service.ClientService;
 import com.mindhub.homebanking.service.TransactionService;
+import com.mindhub.homebanking.ultilties.Utils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,20 +50,22 @@ public class AccountController {
 
     @PostMapping("/clients/current/accounts")
     public ResponseEntity<Object> createAccount(Authentication authentication, @RequestParam AccountType type) {
+
         Client client = this.clientService.findByEmail(authentication.getName());
+
         if(client.getAccounts().stream().filter(Account::isStatus).count() == 3){
-            return new ResponseEntity<>("Already have 3 accounts",HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Ya tienes 3 cuentas",HttpStatus.FORBIDDEN);
         }
-        accountService.save(new Account("VIN-"+ getRandomNumber(10000000,99999999),LocalDateTime.now(),0,client,type,true));
+
+        accountService.save(new Account("VIN"+ Utils.getRandomNumber(100,99999999),LocalDateTime.now(),0,client,type,true));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    public int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
+    
 
     @PostMapping("/accounts")
     public ResponseEntity<?> deleteAccount(@RequestParam String number){
+
         Account account = this.accountService.findByNumber(number);
         List<Transaction> transactions=this.transactionService.findByAccountNumber(number);
         account.setStatus(false);

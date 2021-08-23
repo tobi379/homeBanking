@@ -21,10 +21,9 @@ const app = Vue.createApp({
               .then(res => window.location.href = "/index.html")
         },
         createLoan() {
-            let fee = this.fee / 100
-            console.log(fee)
+            let interes = this.fee / 100
 
-            axios.post("/api/loan/", "name=" + this.loanName + "&maxAmount=" + this.maxAmount + "&payments=" + this.payments + "&fee=" + fee)
+            axios.post("/api/loan/", "name=" + this.loanName + "&maxAmount=" + this.maxAmount + "&payments=" + this.payments + "&fee=" + interes)
                 .then(res => alert("created"))
         }
     }

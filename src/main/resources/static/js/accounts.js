@@ -34,14 +34,14 @@ const app = Vue.createApp ({
           axios.post('/api/logout')
             .then(res => window.location.href = "/index.html")
         },
-        AddAccount(type) {
+        Add(type) {
             axios.post('/api/clients/current/accounts', "type=" + type,
             {
                 headers: { 'content-type': 'application/x-www-form-urlencoded' }
             })
             location.reload()
         },
-        deleteAccount(id) {
+        del(id) {
             axios.post("/api/accounts", "number=" + id)
             location.reload()
         }

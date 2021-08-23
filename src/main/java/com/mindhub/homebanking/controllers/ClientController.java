@@ -8,6 +8,7 @@ import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.service.AccountService;
 import com.mindhub.homebanking.service.ClientService;
+import com.mindhub.homebanking.ultilties.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.mindhub.homebanking.ultilties.CardUtils.getRandomNumber;
+import static com.mindhub.homebanking.ultilties.Utils.getRandomNumber;
 import static java.util.stream.Collectors.toList;
 
 @RestController
@@ -52,16 +53,16 @@ public class ClientController {
                                       @RequestParam String email, @RequestParam String password) {
 
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Empty", HttpStatus.FORBIDDEN);
         }
 
         if (clientService.findByEmail(email) != null) {
-            return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
         }
 
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
         clientService.save(client);
-        accountService.save(new Account("VIN-"+ getRandomNumber(0,99999999), LocalDateTime.now(),0,client, AccountType.Ahorro,true));
+        accountService.save(new Account("VIN"+ Utils.getRandomNumber(100, 999999999), LocalDateTime.now(),0,client, AccountType.Ahorro,true));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

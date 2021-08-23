@@ -63,7 +63,7 @@ public class LoanController {
         }
 
         if (loan.getMaxAmount() < loanApplicationDTO.getAmount() ){
-           return new ResponseEntity<>("Ammount error", HttpStatus.FORBIDDEN);
+           return new ResponseEntity<>("Incorrect amount", HttpStatus.FORBIDDEN);
         }
 
         if(accountDest == null){
@@ -71,11 +71,11 @@ public class LoanController {
         }
 
         if(!loan.getPayments().contains(loanApplicationDTO.getPayments())){
-           return new ResponseEntity<>("Payments Error",HttpStatus.FORBIDDEN);
+           return new ResponseEntity<>("Incorrect payments",HttpStatus.FORBIDDEN);
         }
 
         if (!client.getAccounts().contains(accountDest)){
-           return new ResponseEntity<>("client don't have this account", HttpStatus.FORBIDDEN);
+           return new ResponseEntity<>("No client", HttpStatus.FORBIDDEN);
         }
 
         clientLoanService.save(new ClientLoan(loanApplicationDTO.getAmount() +loanApplicationDTO.getAmount() * loan.getPorcentaje(),loanApplicationDTO.getPayments(),client,loan));

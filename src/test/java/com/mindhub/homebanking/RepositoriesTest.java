@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.*;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
-import com.mindhub.homebanking.ultilties.CardUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

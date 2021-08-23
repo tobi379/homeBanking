@@ -4,13 +4,14 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.service.CardService;
 import com.mindhub.homebanking.service.ClientService;
+import com.mindhub.homebanking.ultilties.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
-import static com.mindhub.homebanking.ultilties.CardUtils.getRandomNumber;
+import static com.mindhub.homebanking.ultilties.Utils.getRandomNumber;
 
 
 @RestController
@@ -31,7 +32,7 @@ public class CardController {
             return new ResponseEntity<>("Already have 3 Cards", HttpStatus.FORBIDDEN);
         }
 
-        cardService.save(new Card( cardColor, "2000"+ "-" + getRandomNumber(1000, 9999) + "-"+  getRandomNumber(1000, 9999)+ "-" + getRandomNumber(1000, 9999), getRandomNumber(100, 999), LocalDate.now(),LocalDate.now().plusYears(5),client.getFirstName() + " " + client.getLastName(), cardType,client,true));
+        cardService.save(new Card( cardColor, "2000"+ "-" + Utils.getRandomNumber(1000, 9999) + "-"+  Utils.getRandomNumber(1000, 9999) + "-" + Utils.getRandomNumber(1000, 9999), Utils.getRandomNumber(1000, 9999), LocalDate.now(),LocalDate.now().plusYears(5),client.getFirstName() + " " + client.getLastName(), cardType,client,true));
         return new ResponseEntity<>(HttpStatus.CREATED);
 
     }

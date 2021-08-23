@@ -51,7 +51,7 @@
                 <div class="cardContainer">
                     <div v-if="cardsDebito != 0" v-for="card in cardsDebito" class="card">
                         <div class="card__front card__part bg-color">
-                            <p v-if="overdue(card.thruDate)" style="color: red;" class="card__front-square card__square card__label">Esta vencida</p>
+                            <!-- <p v-if="overdue(card.thruDate)" style="color: red;" class="card__front-square card__square card__label">Esta vencida</p> -->
                             <p v-else class="card__front-square card__square card__label">{{card.color}}</p>
                             <p class="card_number">{{card.number}}</p>
                             <div class="card__space-75">
@@ -86,7 +86,7 @@
                 <div class="cardContainer">
                     <div v-if="cardsCredito != 0" v-for="card in cardsCredito" class="card">
                         <div class="card__front card__part bg-color">
-                            <p v-if="overdue(card.thruDate)" style="color: red;" class="card__front-square card__square card__label">Esta vencida</p>
+                            <!-- <p v-if="overdue(card.thruDate)" style="color: red;" class="card__front-square card__square card__label">Esta vencida</p> -->
                             <p v-else class="card__front-square card__square card__label">{{card.color}}</p>
                             <p class="card_number">{{card.number}}</p>
                             <div class="card__space-75">

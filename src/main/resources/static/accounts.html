@@ -61,9 +61,9 @@
                                 Seleccionar tipo de cuenta </div>
                             <div class="modal-footer">
                                 <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="Close">
-                                <input @click="AddAccount('Ahorro')" type="button" class="btn btn-primary"
+                                <input @click="Add('Ahorro')" type="button" class="btn btn-primary"
                                     value="Caja de Ahorro">
-                                <input @click="AddAccount('Corriente')" type="button" class="btn btn-primary"
+                                <input @click="Add('Corriente')" type="button" class="btn btn-primary"
                                     value="Cuenta Corriente">
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                             <p class="card-text">{{date(accounts.creationDate)}}</p>
                             <div class="d-flex justify-content-between">
                                 <a v-bind:href="'http://localhost:8080/account.html?id=' + accounts.id" class="btn btn-outline-primary">Ultimas Transacciones</a>
-                                <a @click="deleteAccount(accounts.number)" class="btn btn-outline-danger">Borrar Cuenta</a>
+                                <a @click="del(accounts.number)" class="btn btn-outline-danger">Borrar Cuenta</a>
                             </div>
                         </div>
                       </div>

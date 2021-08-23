@@ -2,15 +2,13 @@ const app = Vue.createApp({
 
     data() {
         return {
-            name: "",
-            lname: "",
             cards: [],
             cardsDebito: [],
             cardsCredito: [],
-            showDebit: true,
-            showCredit: true,
             type: "",
             color: "",
+            showDebit: true,
+            showCredit: true,
         }
 
     },
@@ -20,15 +18,11 @@ const app = Vue.createApp({
             .then(res => {
                 console.log(res)
                 this.clientes = res.data
-                this.name = this.clientes.firstName
-                this.lname = this.clientes.lastName
                 this.cards = res.data.cards
-                this.cards.sort((a, b) => a.id - b.id)
-                console.log(this.cards)
                 this.cardsDebito = this.cards.filter(e => e.type == 'DEBIT')
-                console.log(this.cardsDebito)
                 this.cardsCredito = this.cards.filter(e => e.type == 'CREDIT')
-                console.log(this.cardsCredito)
+                // console.log(this.cardsDebito)
+                // console.log(this.cardsCredito)
             })
             .catch(function (error) {
                 // handle error
@@ -63,12 +57,6 @@ const app = Vue.createApp({
                     location.reload()
                 })
         },
-        overdue(date) { 
-            let hoy = new Date().toJSON().slice(0, 10).split('-').join('-');
-            if (date.valueOf() < hoy.valueOf()) {
-                console.log(hoy, date); return true
-            }
-        }
     },
 
 })

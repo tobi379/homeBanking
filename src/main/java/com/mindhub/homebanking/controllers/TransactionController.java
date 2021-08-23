@@ -38,11 +38,19 @@ public class TransactionController {
         Account accountDest = this.accountService.findByNumber(AccDest);
 
         if (amount == 0 || description.isEmpty() || AccOrigen.isEmpty() || AccDest.isEmpty()) {
-            return new ResponseEntity<>("Missing Data1", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Missing Data", HttpStatus.FORBIDDEN);
         }
 
-        if (accountOrigin == accountDest || accountOrigin == null || !client.getAccounts().contains(accountOrigin)) {
+        if (accountOrigin == accountDest) {
             return new ResponseEntity<>("Missing Data2", HttpStatus.FORBIDDEN);
+        }
+
+        if (!client.getAccounts().contains(accountOrigin)) {
+            return new ResponseEntity<>("Doesnt belong", HttpStatus.FORBIDDEN);
+        }
+
+        if (accountOrigin == null) {
+            return new ResponseEntity<>("No origin account", HttpStatus.FORBIDDEN);
         }
 
         if (accountDest == null || accountOrigin.getBalance() < amount) {
