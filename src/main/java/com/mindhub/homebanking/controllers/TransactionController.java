@@ -49,8 +49,8 @@ public class TransactionController {
             return new ResponseEntity<>("Missing Data3", HttpStatus.FORBIDDEN);
         }
 
-        transactionService.save(new Transaction(amount, LocalDate.now(), TransactionType.Debito, description + AccDest, accountOrigin.getBalance() - amount, accountOrigin));
-        transactionService.save(new Transaction(amount, LocalDate.now(), TransactionType.Credito, description + AccOrigen, accountDest.getBalance() + amount, accountDest));
+        transactionService.save(new Transaction(amount, LocalDate.now(), TransactionType.Debito, description, accountOrigin.getBalance() - amount, accountOrigin));
+        transactionService.save(new Transaction(amount, LocalDate.now(), TransactionType.Credito, description, accountDest.getBalance() + amount, accountDest));
         double debito = accountOrigin.getBalance() - amount;
         double credito = accountDest.getBalance() + amount;
         accountOrigin.setBalance(debito);

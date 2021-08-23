@@ -163,3 +163,21 @@ section {
         display: inline-block;
     }
 }
+
+.modal-dialog {
+    top: 200px;
+}
+
+.modal-body {
+    text-align: center;
+}
+
+.modal-footer {
+    justify-content: center;
+}
+
+.modal-footer .btn {
+    font-weight: 700;
+    line-height: 1.8;
+    padding: 1rem 2rem;
+}

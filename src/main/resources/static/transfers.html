@@ -91,6 +91,10 @@
                     <label class="campo__label" v-if="transfer == 'propia' || transfer == 'tercero'" for="amount">Cantidad:</label>
                     <input class="campo__field" v-if="transfer == 'propia' || transfer == 'tercero'" v-model="amount" type="number" id="amount" required>
                 </div>
+
+                <div class="campo">
+                    <button class="btn btn-primary" @click="transferir">Solicitar préstamo</button>
+                </div>
             </form>
         </main>
 

@@ -44,14 +44,6 @@ const app = Vue.createApp({
         transferir() {
             axios.post('/api/transactions', "amount=" + this.amount + "&description=" + this.desc + "&AccOrigen=" + this.accountDebit + "&AccDest=" + this.accountCredit,
             )
-                .then(response => {
-                    swal({
-                        title: "Transfer!",
-                        icon: "success",
-
-                    });
-                    location.reload()
-                })
                 .then(response => window.location.href = "/accounts.html")
                 .catch(err => swal("Error to realize the transaction, please verify the amount"))
         },
